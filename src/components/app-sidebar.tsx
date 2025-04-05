@@ -1,26 +1,16 @@
-import * as React from "react"
 import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react"
+  Command,
+  FileSpreadsheet,
+  LayoutDashboard,
+  LifeBuoy,
+  Link,
+  Send,
+  WholeWord,
+} from "lucide-react";
 
-import { NavDocuments } from "@/components/nav-documents"
-import { NavMain } from "@/components/nav-main"
-import { NavSecondary } from "@/components/nav-secondary"
-import { NavUser } from "@/components/nav-user"
+import { NavProjects } from "@/components/nav-projects";
+import { NavSecondary } from "@/components/nav-secondary";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -29,151 +19,103 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import { useQuery } from "@tanstack/react-query";
+import { getProfile } from "@/api/get-profile";
+import { Button } from "./ui/button";
+import { useNavigate } from "react-router-dom";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
-    },
-    {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
-    },
-    {
-      title: "Analytics",
-      url: "#",
-      icon: IconChartBar,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
   navSecondary: [
     {
-      title: "Settings",
+      title: "Support",
       url: "#",
-      icon: IconSettings,
+      icon: LifeBuoy,
     },
     {
-      title: "Get Help",
+      title: "Feedback",
       url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
+      icon: Send,
     },
   ],
-  documents: [
+  projects: [
     {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
+      name: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboard,
     },
     {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
+      name: "Links",
+      url: "/links",
+      icon: Link,
     },
     {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
+      name: "Pages",
+      url: "/pages",
+      icon: FileSpreadsheet,
+    },
+    {
+      name: "Domínios",
+      url: "/links/domains",
+      icon: WholeWord,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const navigate = useNavigate();
+
+  const { data: profile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: () => getProfile(),
+    retry: false,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  function handleNavigateCreateLink() {
+    navigate("/links/create");
+  }
+
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar variant="floating" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
+            <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                  <Command className="size-4" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-medium">Link Fizz</span>
+                  <span className="truncate text-xs">Enterprise</span>
+                </div>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <Button className="w-full" onClick={handleNavigateCreateLink}>
+              Criar link
+            </Button>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {profile && (
+          <NavUser
+            user={{
+              name: profile.name,
+              email: profile.email,
+            }}
+          />
+        )}
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

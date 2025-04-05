@@ -5,6 +5,9 @@ import { useLayoutEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { Loading } from "../loading";
 
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+
 export function AppLayout() {
   const { isAuthenticated, unauthenticate, isLoading } = useAuth();
 
@@ -34,8 +37,11 @@ export function AppLayout() {
   }
 
   return (
-    <main>
-      <Outlet />
-    </main>
+    <SidebarProvider>
+      <AppSidebar />
+      <main>
+        <Outlet />
+      </main>
+    </SidebarProvider>
   );
 }
