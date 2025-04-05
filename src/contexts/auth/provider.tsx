@@ -4,6 +4,7 @@ import { STORAGE_KEYS } from "@/constants/storage";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const storedToken = localStorage.getItem(STORAGE_KEYS.TOKEN);
@@ -11,6 +12,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (storedToken) {
       setToken(storedToken);
     }
+
+    setIsLoading(false);
   }, []);
 
   function authenticate(token: string) {
@@ -27,6 +30,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     <AuthContext.Provider
       value={{
         isAuthenticated: !!token,
+        isLoading,
         authenticate,
         unauthenticate,
       }}

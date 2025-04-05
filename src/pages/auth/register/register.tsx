@@ -1,9 +1,9 @@
-import { useAuth } from "@/hooks/use-auth";
-import { LoginForm } from "./login-form";
 import { Title, Meta } from "react-head";
+import { RegisterForm } from "./register-form";
+import { useAuth } from "@/hooks/use-auth";
 import { Navigate } from "react-router-dom";
 
-export function LoginPage() {
+export function RegisterPage() {
   const { isAuthenticated } = useAuth();
 
   if (isAuthenticated) {
@@ -12,12 +12,12 @@ export function LoginPage() {
 
   return (
     <>
-      <Title>Entrar | Link Fizz</Title>
+      <Title>Registrar | Link Fizz</Title>
       <Meta
         name="description"
-        content="Faça login para acessar sua conta no Link Fizz"
+        content="Crie uma conta para acessar o Link Fizz"
       />
-      <LoginForm />
+      <RegisterForm />
     </>
   );
 }
