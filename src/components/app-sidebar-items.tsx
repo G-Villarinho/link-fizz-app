@@ -7,6 +7,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Separator } from "./ui/separator";
+import { Link } from "react-router-dom";
 
 interface AppSidebarItemsProps {
   items: {
@@ -23,10 +24,10 @@ export function AppSidebarItems({ items }: AppSidebarItemsProps) {
         {items.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
-              <a href={item.url}>
+              <Link to={item.url}>
                 <item.icon />
-                <span className="ml-4">{item.name}</span>
-              </a>
+                <span className="ml-4 ">{item.name}</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}

@@ -4,6 +4,9 @@ import { createBrowserRouter } from "react-router-dom";
 import { AuthLayout } from "@/pages/_layouts/auth";
 import { AppLayout } from "./pages/_layouts/app";
 
+// Error Pages
+import { NotFound } from "@/pages/404";
+
 // Auth Pages
 import { LoginPage } from "@/pages/auth/login/login";
 import { RegisterPage } from "@/pages/auth/register/register";
@@ -12,7 +15,7 @@ import { RegisterPage } from "@/pages/auth/register/register";
 import { DashboardPage } from "@/pages/app/dashboard";
 import { CreateLinkPage } from "@/pages/app/create-link/create-link";
 import { LinkDetailsPage } from "@/pages/app/link-details/link-details";
-import { LinksPage } from "./pages/app/links/links";
+import { LinksPage } from "@/pages/app/links/links";
 
 export const router = createBrowserRouter([
   {
@@ -31,8 +34,14 @@ export const router = createBrowserRouter([
   },
 
   {
+    path: "/not-found",
+    element: <NotFound />,
+  },
+
+  {
     path: "/",
     element: <AppLayout />,
+    errorElement: <NotFound />,
     children: [
       {
         path: "/dashboard",

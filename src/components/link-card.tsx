@@ -36,7 +36,7 @@ export function LinkCard({ link }: LinkCardProps) {
   const faviconUrl = `https://www.google.com/s2/favicons?sz=32&domain=${domain}`;
 
   return (
-    <Card className="w-full shadow-md bg-zinc-50">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle className="flex justify-between items-start flex-wrap gap-2">
           <Link
@@ -44,7 +44,7 @@ export function LinkCard({ link }: LinkCardProps) {
             className="flex items-center gap-3 hover:underline"
           >
             {domain && (
-              <div className="w-8 h-8 bg-white border border-zinc-300 rounded-md shadow-sm flex items-center justify-center">
+              <div className="w-8 h-8 bg-muted border border-border rounded-md shadow-sm flex items-center justify-center">
                 <img
                   src={faviconUrl}
                   alt={`${domain} favicon`}
@@ -53,7 +53,7 @@ export function LinkCard({ link }: LinkCardProps) {
                 />
               </div>
             )}
-            <h1 className="text-xl font-bold">{link.title}</h1>
+            <h1 className="text-xl font-bold text-foreground">{link.title}</h1>
           </Link>
           <LinkCardActions
             shortCode={link.shortCode}
@@ -67,19 +67,19 @@ export function LinkCard({ link }: LinkCardProps) {
           to={link.shortUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-700 font-semibold text-md hover:underline"
+          className="text-primary font-semibold text-md hover:underline"
         >
           {`linkfizz.com/${link.shortCode}`}
         </Link>
         <Link to={link.originalUrl} target="_blank" rel="noopener noreferrer">
-          <p className="text-sm text-zinc-600 hover:text-zinc-800 hover:underline truncate max-w-3xl">
+          <p className="text-sm text-muted-foreground hover:text-foreground hover:underline truncate max-w-3xl">
             {link.originalUrl}
           </p>
         </Link>
       </CardContent>
 
       <CardFooter>
-        <div className="flex justify-between w-full text-sm text-zinc-500">
+        <div className="flex justify-between w-full text-sm text-muted-foreground">
           <p className="flex items-center gap-2">
             <Calendar size={16} />
             <span className="mt-[2px]">{formattedDate}</span>

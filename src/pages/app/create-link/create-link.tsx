@@ -19,7 +19,7 @@ export function CreateLinkPage() {
           />
         </div>
 
-        <Card className="w-full  rounded-2xl shadow-md bg-zinc-50">
+        <Card className="w-full">
           <CardContent>
             <CreateLinkForm />
           </CardContent>
