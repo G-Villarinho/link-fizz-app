@@ -14,7 +14,7 @@ import { RegisterPage } from "@/pages/auth/register/register";
 // App Pages
 import { DashboardPage } from "@/pages/app/dashboard";
 import { CreateLinkPage } from "@/pages/app/create-link/create-link";
-import { LinkDetailsPage } from "@/pages/app/link-details/link-details";
+import { LinkDetailsPage } from "@/pages/app/link-details";
 import { LinksPage } from "@/pages/app/links/links";
 
 export const router = createBrowserRouter([

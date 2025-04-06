@@ -6,21 +6,24 @@ import { LinkResponse } from "@/api/responses/link";
 import { LinkCard } from "@/components/link-card";
 import { Meta, Title } from "react-head";
 import { isAxiosError } from "axios";
-import { LinkAnalyticsChart } from "./link-analytics-chart";
+import { LinkMonthClickAnalyticsChart } from "./link-month-clicks-analytics-chart";
 import { getLinkDetails } from "@/api/get-link-details";
+import { LinkLocationAnalyticsChart } from "./link-location-analytics-chart";
+import { LinkDeviceAnalyticsChart } from "./link-device-analytics-chart";
+import { LinkDeviceReachRadarChart } from "./link-device-reach-radar-chart";
 
 const mockMonthlyClicks = [
-  { month: "Janeiro", views: 120 },
+  { month: "Janeiro", views: 220 },
   { month: "Fevereiro", views: 95 },
-  { month: "Março", views: 134 },
-  { month: "Abril", views: 88 },
+  { month: "Março", views: 234 },
+  { month: "Abril", views: 188 },
   { month: "Maio", views: 142 },
   { month: "Junho", views: 101 },
   { month: "Julho", views: 101 },
   { month: "Agosto", views: 101 },
-  { month: "Setembro", views: 401 },
+  { month: "Setembro", views: 301 },
   { month: "Outubro", views: 141 },
-  { month: "Novembro", views: 901 },
+  { month: "Novembro", views: 301 },
   { month: "Dezembro", views: 1 },
 ];
 
@@ -74,7 +77,12 @@ export function LinkDetailsPage() {
         {link && (
           <>
             <LinkCard link={link} />
-            <LinkAnalyticsChart data={mockMonthlyClicks} />
+            <LinkMonthClickAnalyticsChart data={mockMonthlyClicks} />
+            <LinkLocationAnalyticsChart />
+            <div className="w-full flex flex-col sm:flex-row gap-4">
+              <LinkDeviceAnalyticsChart />
+              <LinkDeviceReachRadarChart />
+            </div>
           </>
         )}
       </div>

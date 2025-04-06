@@ -32,11 +32,13 @@ type LinkAnalyticsChartProps = {
 const chartConfig = {
   views: {
     label: "Visualizações",
-    color: "hsl(var(--chart-1))",
+    color: "oklch(var(--chart-1))",
   },
 };
 
-export function LinkAnalyticsChart({ data }: LinkAnalyticsChartProps) {
+export function LinkMonthClickAnalyticsChart({
+  data,
+}: LinkAnalyticsChartProps) {
   return (
     <Card>
       <CardHeader>
