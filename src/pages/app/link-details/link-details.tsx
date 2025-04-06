@@ -3,11 +3,11 @@ import { LinkSuccessEffect } from "./link-success-efect";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { LinkResponse } from "@/api/responses/link";
-import { getLinkByShortCode } from "@/api/get-link-by-short-code";
 import { LinkCard } from "@/components/link-card";
 import { Meta, Title } from "react-head";
 import { isAxiosError } from "axios";
 import { LinkAnalyticsChart } from "./link-analytics-chart";
+import { getLinkDetails } from "@/api/get-link-details";
 
 const mockMonthlyClicks = [
   { month: "Janeiro", views: 120 },
@@ -41,7 +41,7 @@ export function LinkDetailsPage() {
     }
 
     try {
-      return await getLinkByShortCode({ shortCode });
+      return await getLinkDetails({ shortCode });
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 404) {
         navigate("/not-found", { replace: true });
@@ -50,7 +50,7 @@ export function LinkDetailsPage() {
     }
   }
 
-  const { data: link, isLoading } = useQuery({
+  const { data: link } = useQuery({
     queryKey: ["link", shortCode],
     queryFn: fetchLinkWithRedirect,
     enabled: !!shortCode && !cachedLink,
@@ -58,7 +58,7 @@ export function LinkDetailsPage() {
     retry: false,
   });
 
-  if (!shortCode || (!link && !isLoading)) {
+  if (!shortCode) {
     return <Navigate to="/dashboard" replace />;
   }
 

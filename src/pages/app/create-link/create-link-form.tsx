@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { Loader2, Lock } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -24,6 +24,7 @@ type CreateLinkSchema = z.infer<typeof createLinkSchema>;
 
 export function CreateLinkForm() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -39,6 +40,7 @@ export function CreateLinkForm() {
   async function handleCreateLink(data: CreateLinkSchema) {
     try {
       const response = await createLinkFn(data);
+      queryClient.invalidateQueries({ queryKey: ["links"] });
       navigate(`/links/${response.shortCode}/details`, {
         state: { showModal: true },
       });

@@ -42,8 +42,8 @@ export function CreateLinkSucessModal({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="w-full flex flex-col items-center gap-4 py-4 rounded-xl bg-blue-50">
-          <div className="px-4 py-1 mb-3 rounded-full bg-blue-100 text-blue-700 font-semibold text-md">
+        <div className="w-full flex flex-col items-center gap-4 py-4 rounded-xl bg-muted">
+          <div className="px-4 py-1 mb-3 rounded-full bg-accent text-accent-foreground font-semibold text-md">
             linkfizz.com/{shortCode}
           </div>
 
@@ -57,12 +57,7 @@ export function CreateLinkSucessModal({
               Ver detalhes
             </Button>
 
-            <Button
-              type="button"
-              onClick={handleCopy}
-              variant="default"
-              className="bg-blue-600 text-white hover:bg-blue-700"
-            >
+            <Button type="button" onClick={handleCopy}>
               <Copy className="h-4 w-4 mr-2" />
               {copied ? "Copiado!" : "Copiar link"}
             </Button>
