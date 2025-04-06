@@ -25,6 +25,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useMutation } from "@tanstack/react-query";
+import { logout } from "@/api/logout";
+import { useAuth } from "@/hooks/use-auth";
+import { isAxiosError } from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export function NavUser({
   user,
@@ -35,11 +41,29 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const { unauthenticate } = useAuth();
+  const navigate = useNavigate();
 
-  const getInitials = (name: string) => {
+  function getInitials(name: string) {
     const [first = "", last = ""] = name.trim().split(" ");
     return (first[0] || "") + (last[0] || "");
-  };
+  }
+
+  const { mutateAsync: logoutFn } = useMutation({
+    mutationFn: logout,
+  });
+
+  async function handleLogout() {
+    try {
+      await logoutFn();
+      unauthenticate();
+      navigate("/login");
+    } catch (error) {
+      if (isAxiosError(error)) {
+        toast.error("Logout failed");
+      }
+    }
+  }
 
   return (
     <SidebarMenu>
@@ -104,7 +128,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>

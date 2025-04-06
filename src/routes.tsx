@@ -9,7 +9,9 @@ import { LoginPage } from "@/pages/auth/login/login";
 import { RegisterPage } from "@/pages/auth/register/register";
 
 // App Pages
-import { DashboardPage } from "./pages/app/dashboard";
+import { DashboardPage } from "@/pages/app/dashboard";
+import { CreateLinkPage } from "@/pages/app/create-link/create-link";
+import { LinkDetailsPage } from "@/pages/app/link-details/link-details";
 
 export const router = createBrowserRouter([
   {
@@ -32,8 +34,16 @@ export const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        path: "dashboard",
+        path: "/dashboard",
         element: <DashboardPage />,
+      },
+      {
+        path: "/create-link",
+        element: <CreateLinkPage />,
+      },
+      {
+        path: "links/:shortCode/details",
+        element: <LinkDetailsPage />,
       },
     ],
   },
