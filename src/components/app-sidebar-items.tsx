@@ -8,19 +8,19 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "./ui/separator";
 
-export function NavProjects({
-  projects,
-}: {
-  projects: {
+interface AppSidebarItemsProps {
+  items: {
     name: string;
     url: string;
     icon: LucideIcon;
   }[];
-}) {
+}
+
+export function AppSidebarItems({ items }: AppSidebarItemsProps) {
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarMenu>
-        {projects.map((item) => (
+        {items.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
               <a href={item.url}>

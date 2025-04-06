@@ -32,14 +32,14 @@ import { isAxiosError } from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-export function NavUser({
-  user,
-}: {
+interface AppSidebarUserProps {
   user: {
     name: string;
     email: string;
   };
-}) {
+}
+
+export function AppSidebarUser({ user }: AppSidebarUserProps) {
   const { isMobile } = useSidebar();
   const { unauthenticate } = useAuth();
   const navigate = useNavigate();

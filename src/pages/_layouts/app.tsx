@@ -39,7 +39,7 @@ export function AppLayout() {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full">
+      <main className="w-full px-56 py-12">
         <Outlet />
       </main>
     </SidebarProvider>

@@ -11,15 +11,15 @@ export function CreateLinkPage() {
         name="description"
         content="Crie um link personalizado e encurte-o com o Link Fizz"
       />
-      <div className="w-full flex flex-col items-center px-4 pt-32 gap-6">
-        <div className="w-full max-w-4xl">
+      <div className="w-full flex flex-col items-center gap-6">
+        <div className="w-full">
           <Heading
             title="Criar link"
             subtitle="Personalize e encurte seus links de forma rápida e fácil"
           />
         </div>
 
-        <Card className="w-full max-w-4xl rounded-2xl shadow-md bg-zinc-50">
+        <Card className="w-full  rounded-2xl shadow-md bg-zinc-50">
           <CardContent>
             <CreateLinkForm />
           </CardContent>

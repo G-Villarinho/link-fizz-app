@@ -9,9 +9,9 @@ import {
   WholeWord,
 } from "lucide-react";
 
-import { NavProjects } from "@/components/nav-projects";
-import { NavSecondary } from "@/components/nav-secondary";
-import { NavUser } from "@/components/nav-user";
+import { AppSidebarItems } from "@/components/app-sidebar-items";
+import { AppSidebarSecondary } from "@/components/app-sidebar-secondary";
+import { AppSidebarUser } from "@/components/app-sidebar-user";
 import {
   Sidebar,
   SidebarContent,
@@ -27,19 +27,19 @@ import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 
 const data = {
-  navSecondary: [
+  sidebarSecondaryItems: [
     {
-      title: "Support",
+      name: "Support",
       url: "#",
       icon: LifeBuoy,
     },
     {
-      title: "Feedback",
+      name: "Feedback",
       url: "#",
       icon: Send,
     },
   ],
-  projects: [
+  sidebarItems: [
     {
       name: "Dashboard",
       url: "/dashboard",
@@ -63,7 +63,7 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar() {
   const navigate = useNavigate();
 
   const { data: profile } = useQuery({
@@ -74,11 +74,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   });
 
   function handleNavigateCreateLink() {
-    navigate("/create-link");
+    navigate("/links/create");
   }
 
   return (
-    <Sidebar variant="floating" {...props}>
+    <Sidebar variant="floating">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -104,12 +104,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavProjects projects={data.projects} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <AppSidebarItems items={data.sidebarItems} />
+        <AppSidebarSecondary
+          items={data.sidebarSecondaryItems}
+          className="mt-auto"
+        />
       </SidebarContent>
       <SidebarFooter>
         {profile && (
-          <NavUser
+          <AppSidebarUser
             user={{
               name: profile.name,
               email: profile.email,

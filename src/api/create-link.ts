@@ -17,8 +17,8 @@ export async function createLink({
 }: CreateLinkRequest) {
   const response = await api.post<CreateLinkResponse>("/links", {
     title,
-    destination_url: destinationUrl,
-    custom_code: customCode,
+    destinationUrl,
+    customCode,
   });
 
   return response.data;
